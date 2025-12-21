@@ -4,6 +4,7 @@
 #include <string>
 #include "User.h"
 #include "Student.h"
+#include "Assignment.h"
 using namespace std;
 
 class Teacher : public User
@@ -20,10 +21,8 @@ public:
     ~Teacher();
 
     int viewProfile();
-    void uploadAssignment(string& assignmentTitle); // write data 
-	void uploadMaterial(string& materialTitle); // save data
-    void gradeAssignment(Student* student, string& assignmentTitle, char grade);
-    void viewStudents();
+    void createAssignment(Assignment* assign); // write data 
+    void gradeAssignment(Student* student, int& assignmentId, char grade);
     void setTeacherID(int id);
     int getTeacherID();
 };

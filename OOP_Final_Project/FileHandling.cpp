@@ -18,11 +18,11 @@ FileHandling::FileHandling(string fname)
 
 FileHandling::~FileHandling() {}
 
-void FileHandling::saveData(string& data)
+void FileHandling::saveData(const string& data)
 {
     try
     {
-        ofstream outFile(fileName, ios::out); 
+        ofstream outFile("OOP_Assignment.txt", ios::out);
         outFile << data;
         outFile.close();
         cout << "Data saved successfully." << endl;
@@ -37,7 +37,7 @@ void FileHandling::readData()
 {
     try
     {
-        ifstream inFile(fileName);
+        ifstream inFile("OOP_Assignment.txt");
         string line;
         cout << "---- File Content ----" << endl;
         while (getline(inFile, line))

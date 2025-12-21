@@ -14,7 +14,7 @@ public:
     FileHandling(string fname);
     ~FileHandling();
 
-    void saveData(string& data);
+    void saveData(const string& data);
     void readData();
     void appendData(string& data);
     void clearFile();

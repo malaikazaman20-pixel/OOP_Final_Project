@@ -1,0 +1,10 @@
+debug/createcourse.o
+debug/createprofessor.o
+debug/createstudent.o
+debug/editcourse.o
+debug/editprofessor.o
+debug/editstudent.o
+debug/main.o
+debug/admin.o
+debug/classes.o
+debug/mainmenu.o

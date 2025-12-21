@@ -39,22 +39,18 @@ int Student::viewProfile()
     }
 }
 
-void Student::viewCourseContent()
+void Student::updateProfile()
 {
     try
     {
-        cout << "Viewing course content..." << endl;
-        if (courseCount == 0)
-            cout << "No courses enrolled." << endl;
-        else
-            for (int i = 0; i < courseCount; i++)
-                cout << "Content for course: " << enrolledCourses[i] << endl;
+        User::updateProfile();
     }
     catch (exception& e)
     {
-        cerr << "Error viewing course content: " << e.what() << endl;
+        cerr << "Error updating profile: " << e.what() << endl;
     }
 }
+
 
 void Student::submitAssignment(string& courseName)
 {
@@ -107,17 +103,15 @@ void Student::enrollCourse(string& courseName)
     }
 }
 
-void Student::addGrade(string& assignmentTitle, char grade)
+void Student::addGrade(int& assignmentId, char grade)
 {
     try
     {
-        if (assignmentTitle.empty())
-            throw invalid_argument("Assignment title cannot be empty.");
         if (gradeCount >= 100)
             throw invalid_argument("Grade limit reached!");
 
         gradesList[gradeCount++] = grade;
-        cout << "Grade for assignment '" << assignmentTitle << "': " << grade << endl;
+        cout << "Grade for assignment '" << assignmentId << "': " << grade << endl;
     }
     catch (exception& e)
     {
