@@ -1,3 +1,4 @@
+
 #ifndef STUDENT_H
 #define STUDENT_H
 
@@ -14,16 +15,17 @@ protected:
     int courseCount;
     int gradeCount;
 
+
 public:
     Student();
     ~Student();
 
     int viewProfile();
-    void viewCourseContent();
+	void updateProfile();
     void submitAssignment(string& courseName);
     void viewGrades();
     void enrollCourse(string& courseName);
-    void addGrade(string& assignmentTitle, char grade);
+    void addGrade(int& assignmentId, char grade);
     void setStudentID(int id);
     int getStudentID();
     string getName();

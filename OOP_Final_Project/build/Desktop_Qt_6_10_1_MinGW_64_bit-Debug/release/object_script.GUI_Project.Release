@@ -1,0 +1,10 @@
+release/createcourse.o
+release/createprofessor.o
+release/createstudent.o
+release/editcourse.o
+release/editprofessor.o
+release/editstudent.o
+release/main.o
+release/admin.o
+release/classes.o
+release/mainmenu.o

@@ -3,7 +3,6 @@
 
 #include <string>
 #include "Teacher.h"
-#include "Student.h"
 #include "Assignment.h"
 using namespace std;
 

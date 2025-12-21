@@ -13,6 +13,9 @@ void User::updateProfile()
     {
         string newName, newEmail;
 
+        cout << "Enter ID: ";
+		cin >> userID;
+
         cout << "Enter Updated Name: ";
         cin.ignore();
         getline(cin, newName);

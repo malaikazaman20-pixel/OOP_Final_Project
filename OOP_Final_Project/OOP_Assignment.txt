@@ -1,0 +1,10 @@
+Object-oriented System Implementation
+Bahria University requires a Learning Management System (LMS) to manage its academic
+operations digitally. The system should support multiple roles, such as Admin, Instructor, and
+Student, allowing them to perform actions like user registration, course creation, assignment
+submission, grading, and feedback etc.
+You are required to develop Bahria LMS, implementing all essential functionalities and are
+encouraged to add extra features (such as discussion forums, attendance tracking,
+notifications, etc as much as you can) to earn extra credit.
+The project must be developed entirely using OOP principles and follow the Deitel-inspired
+design-to-implementation process as described below. 

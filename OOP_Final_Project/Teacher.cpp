@@ -1,4 +1,6 @@
 #include "Teacher.h"
+#include "Assignment.h"
+#include "FileHandling.h"
 #include <iostream>
 #include <stdexcept>
 using namespace std;
@@ -30,13 +32,30 @@ int Teacher::viewProfile()
     }
 }
 
-void Teacher::uploadAssignment(string& assignmentTitle)
+
+void Teacher::createAssignment(Assignment* assign)
 {
+    int id, day, mon, year;
+    FileHandling fh;
     try
-    {
-        if (assignmentTitle.empty())
-            throw invalid_argument("Assignment title cannot be empty.");
-        cout << "Uploading assignment: " << assignmentTitle << endl;
+	{
+        if (assign != nullptr)
+        {
+            cout << "Enter Assignment ID: ";
+            cin >> id;
+            assign->setAssignmentID(id);
+            cout << "Enter Due Date (day month year): ";
+            cin >> day >> mon >> year;
+            assign->setDueDate(day, mon, year);
+            cout << "Upload your assigment for description";
+
+            cout << "Here is your uploaded Assignment" << endl;
+            cout << "Assignment ID: " << assign->getAssignmentID() << endl;
+            cout << "Due Date: " << day << " : " << mon << " : " << year << endl;
+			cout << "Assignment Description: " << assign->getDescription() << endl;
+			fh.readData();
+        }
+      
     }
     catch (exception& e)
     {
@@ -44,20 +63,20 @@ void Teacher::uploadAssignment(string& assignmentTitle)
     }
 }
 
-void Teacher::gradeAssignment(Student* student, string& assignmentTitle, char grade)
+void Teacher::gradeAssignment(Student* student, int& assignmentId, char grade)
 {
     try
     {
         if (student == nullptr)
             throw invalid_argument("Student pointer is null.");
-        if (assignmentTitle.empty())
+        if (assignmentId == 0)
             throw invalid_argument("Assignment title cannot be empty.");
 
-        std::cout << "Grading assignment '" << assignmentTitle
+        std::cout << "Grading assignment '" << assignmentId
             << "' for student " << student->getName()
             << ". Grade: " << grade << std::endl;
 
-        student->addGrade(assignmentTitle, grade);
+        student->addGrade(assignmentId, grade);
     }
     catch (exception& e)
     {
@@ -72,3 +91,7 @@ void Teacher::setTeacherID(int id)
 }
 
 
+int Teacher::getTeacherID()
+{
+	return teacherID;
+}

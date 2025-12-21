@@ -79,6 +79,7 @@ void Course::addAssignment(Assignment* assignment)
 
 void Course::displayCourseDetails()
 {
+    cout << endl;
     try
     {
         cout << "---- Course Details ----" << endl;

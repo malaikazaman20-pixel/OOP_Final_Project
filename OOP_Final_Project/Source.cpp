@@ -13,177 +13,196 @@ using namespace std;
 
 int main()
 {
-	int choice;
-	cout << "Welcome to Bahria University LMS!\n";
-	cout << "Enter your choice:  " << endl;
-	cout << "1. Admin \n 2. Teacher \n 3. Student" << endl;;
-	cin >> choice;
+    void adminMenu(Admin & admin, Teacher & teacher, Student & student, Course & course, Semester & semester, FileHandling & file);
+    void teacherMenu(Teacher & teacher, Student & student, Assignment & assignment, Communication & comm);
+    void studentMenu(Student & student, Communication & comm, FileHandling & file);
+    int roleChoice;
 
-	Admin admin;
-	Student student;
-	Teacher	teacher;
-	Course course;  
-	Semester semester;
-	Assignment assignment;
-	Grade grade;
-	Communication comm;
-	FileHandling file;
+    Admin admin;
+    Teacher teacher;
+    Student student;
+    Course course;
+    Assignment assignment;
+    Grade grade;
+    Semester semester;
+    Communication comm;
+    FileHandling file;
 
-	if (choice == 1)
-		admin.updateProfile();
-	else if (choice == 2)
-		teacher.updateProfile();
-	else if (choice == 3)
-		student.updateProfile();
+    do
+    {
+        cout << "\nWelcome to Bahria University LMS!\n";
+        cout << "Select Role:\n";
+        cout << "0. Exit\n1. Admin\n2. Teacher\n3. Student\n";
+        cin >> roleChoice;
 
-	int choice1;
-	do {
-		cout << "\n--- LMS Main Menu ---\n";
-		cout << "1. View Profile\n";
-		cout << "2. Courses\n";
-		cout << "3. Assignments\n";
-		cout << "4. Grades\n";
-		cout << "5. Communication\n";
-		cout << "6. Semester\n";
-		cout << "7. File Handling\n";
-		cout << "8. Exit\n";
-		cout << "Enter your choice: ";
-		cin >> choice1;
+        switch (roleChoice)
+        {
+        case 1:
+            adminMenu(admin, teacher, student, course, semester, file);
+            break;
 
-		switch (choice1)
-		{
-		case 1:
-			if (choice == 1)
-				admin.viewProfile();
-			else if (choice == 2)
-				teacher.viewProfile();
-			else if (choice == 3)
-				student.viewProfile();
-			break;
-		case 2:
-			if (choice == 1)
-			{
-				admin.createCourse(course);  // Create course and pass course object
-				course.displayCourseDetails();
-			}
-			else if (choice == 2)
-			{
-				cout << "Your Courses:\n";
-				teacher.viewProfile();  // Viewing teacher's profile to display assigned courses
-			}
-			else if (choice == 3)
-			{
-				cout << "Your Enrolled Courses:\n";
-				student.viewProfile();  // Viewing student's profile to display enrolled courses
-			}
-			break;
-		case 3:
-			if (choice == 1)
-			{
-				cout << "Admin can view assignments\n";
-			}
-			else if (choice == 2)
-			{
-				string assignmentTitle;
-				cout << "Enter Assignment Title: ";
-				cin >> assignmentTitle;
-				teacher.uploadAssignment(assignmentTitle);
+        case 2:
+            teacherMenu(teacher, student, assignment, comm);
+            break;
 
-				// Grading assignment
-				string studentName;
-				cout << "Enter student name to grade: ";
-				cin >> studentName;
-				char grade;
-				cout << "Enter grade (A, B, C, etc.): ";
-				cin >> grade;
-				teacher.gradeAssignment(&student, assignmentTitle, grade);  // Pass actual student and assignment
-			}
-			else if (choice == 3)
-			{
-				student.viewCourseContent();
-				string courseName;
-				cout << "Enter course name for assignment submission: ";
-				cin >> courseName;
-				student.submitAssignment(courseName);
-			}
-			break;
-		case 4:
-			if (choice == 1)
-			{
-				cout << "Admin can generate grade reports\n";
-			}
-			else if (choice == 2)
-			{
-				string studentName, assignmentTitle;
-				char grade;
-				cout << "Enter student name: ";
-				cin >> studentName;
-				cout << "Enter assignment title: ";
-				cin >> assignmentTitle;
-				cout << "Enter grade: ";
-				cin >> grade;
-				teacher.gradeAssignment(&student, assignmentTitle, grade);
-			}
-			else if (choice == 3)
-			{
-				student.viewGrades();
-			}
-			break;
-		case 5:
-			if (choice == 1)
-			{
-				cout << "Admin messaging\n";
-			}
-			else if (choice == 2)
-			{
-				string receiver, message;
-				cout << "Enter receiver: ";
-				cin >> receiver;
-				cout << "Enter message: ";
-				cin.ignore();  // To ignore the newline after `cin >> receiver`
-				getline(cin, message);  // To allow multi-word input for the message
-				comm.sendMessage(admin.getName(), receiver, message);  // Pass the sender, receiver, and message
-			}
-			else if (choice == 3)
-			{
-				comm.receiveMessage();
-			}
-			break;
-		case 6:
-			if (choice == 1)
-			{
-				cout << "Admin can manage semesters\n";
-			}
-			else if (choice == 2)
-			{
-				semester.viewSemesterCourses();
-			}
-			else if (choice == 3)
-			{
-				semester.viewSemesterCourses();
-			}
-			break;
-		case 7:
-			if (choice == 1 || choice == 2)
-			{
-				string data;
-				cout << "Enter data to save: ";
-				cin.ignore();
-				getline(cin, data);
-				file.saveData(data);
-			}
-			else if (choice == 3)
-			{
-				file.readData();
-			}
-			break;
-		case 8:
-			cout << "Exiting LMS. Goodbye!\n";
-			break;
+        case 3:
+            studentMenu(student, comm, file);
+            break;
 
-		default:
-			cout << "Invalid choice! Try again.\n";
-		}
-	} while (choice1 != 8);
-	return 0;
+        case 0:
+            cout << "Exiting LMS. Goodbye!\n";
+            break;
+
+        default:
+            cout << "Invalid Role!\n";
+        }
+
+    } while (roleChoice != 0);
+
+    return 0;
 }
+void adminMenu(Admin& admin, Teacher& teacher, Student& student, Course& course, Semester& semester, FileHandling& file)
+{
+    int choice;
+    do 
+    {
+        cout << "\n--- ADMIN MENU ---\n";
+        cout << "1. Create Course\n";
+        cout << "2. Create Student\n";
+        cout << "3. Create Teacher\n";
+        cout << "4. Create Semester\n";
+        cout << "5. Assign Student to Course\n";
+        cout << "6. Assign Teacher to Course\n";
+        cout << "7. View Semester Courses\n";
+		cout << "8. Update Profile\n";
+        cout << "9. View Profile\n";
+        cout << "10. Exit\n";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 9:
+            admin.viewProfile();
+            break;
+        case 1:
+            admin.createCourse(course);
+            break;
+        case 2:
+            admin.createStudent(student);
+            break;
+        case 3:
+            admin.createTeacher(teacher);
+            break;
+        case 4:
+            admin.createSemester(semester);
+            break;
+        case 5:
+            admin.assignStudentToCourse(&student, &course);
+            break;
+        case 6:
+            admin.assignTeacherToCourse(&teacher, &course);
+            break;
+        case 7:
+            semester.viewSemesterCourses();
+            break;
+        case 8:
+			admin.updateProfile();
+            break;
+        case 10:
+            cout << "Admin logged out.\n";
+            break;
+        default:
+            cout << "Invalid choice!\n";
+        }
+    } while (choice != 10);
+}
+
+void teacherMenu(Teacher& teacher, Student& student, Assignment& assignment, Communication& comm)
+{
+    int choice;
+    do 
+    {
+        cout << "\n--- TEACHER MENU ---\n";
+        cout << "1. View Profile\n";
+        cout << "2. Upload Assignment\n";
+        cout << "3. Grade Assignment\n";
+        cout << "4. View Messages\n";
+        cout << "5. Exit\n";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            teacher.viewProfile();
+            break;
+        case 2:
+        {
+            teacher.createAssignment(&assignment);
+            break;
+        }
+        case 3:
+        {
+            int id;
+            char grade;
+            cout << "Assignment id: ";
+            cin >> id;
+            cout << "Grade: ";
+            cin >> grade;
+            teacher.gradeAssignment(&student, id, grade);
+            break;
+        }
+        case 4:
+            comm.receiveMessage();
+            break;
+        case 5:
+            cout << "Teacher logged out.\n";
+            break;
+        default:
+            cout << "Invalid choice!\n";
+        }
+    } while (choice != 5);
+}
+void studentMenu(Student& student, Communication& comm, FileHandling& file)
+{
+    int choice;
+    do {
+        cout << "\n--- STUDENT MENU ---\n";
+        cout << "1. View Profile\n";
+        cout << "2. View Course Content\n";
+        cout << "3. Submit Assignment\n";
+        cout << "4. View Grades\n";
+        cout << "5. Messages\n";
+        cout << "6. Exit\n";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            student.viewProfile();
+            break;
+        case 2:
+            //student.viewCourseContent(course);
+            break;
+        case 3:
+        {
+            string courseName;
+            cout << "Course name: ";
+            cin >> courseName;
+            student.submitAssignment(courseName);
+            break;
+        }
+        case 4:
+            student.viewGrades();
+            break;
+        case 5:
+            comm.viewConversation();
+            break;
+        case 6:
+            cout << "Student logged out.\n";
+            break;
+        default:
+            cout << "Invalid choice!\n";
+        }
+    } while (choice != 6);
+}
+
